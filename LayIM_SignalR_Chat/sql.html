@@ -1,0 +1,647 @@
+﻿USE [master]
+GO
+/****** Object:  Database [sq_fanyuepan]    Script Date: 05/05/2016 11:55:21 ******/
+CREATE DATABASE [sq_fanyuepan] ON  PRIMARY
+( NAME = N'sq_fanyuepan', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\sq_fanyuepan.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON
+( NAME = N'sq_fanyuepan_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\sq_fanyuepan_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [sq_fanyuepan] SET COMPATIBILITY_LEVEL = 100
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [sq_fanyuepan].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [sq_fanyuepan] SET ANSI_NULL_DEFAULT OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET ANSI_NULLS OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET ANSI_PADDING OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET ANSI_WARNINGS OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET ARITHABORT OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET AUTO_CLOSE OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET AUTO_CREATE_STATISTICS ON
+GO
+ALTER DATABASE [sq_fanyuepan] SET AUTO_SHRINK OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET AUTO_UPDATE_STATISTICS ON
+GO
+ALTER DATABASE [sq_fanyuepan] SET CURSOR_CLOSE_ON_COMMIT OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET CURSOR_DEFAULT  GLOBAL
+GO
+ALTER DATABASE [sq_fanyuepan] SET CONCAT_NULL_YIELDS_NULL OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET NUMERIC_ROUNDABORT OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET QUOTED_IDENTIFIER OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET RECURSIVE_TRIGGERS OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET  DISABLE_BROKER
+GO
+ALTER DATABASE [sq_fanyuepan] SET AUTO_UPDATE_STATISTICS_ASYNC OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET DATE_CORRELATION_OPTIMIZATION OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET TRUSTWORTHY OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET ALLOW_SNAPSHOT_ISOLATION OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET PARAMETERIZATION SIMPLE
+GO
+ALTER DATABASE [sq_fanyuepan] SET READ_COMMITTED_SNAPSHOT OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET HONOR_BROKER_PRIORITY OFF
+GO
+ALTER DATABASE [sq_fanyuepan] SET  READ_WRITE
+GO
+ALTER DATABASE [sq_fanyuepan] SET RECOVERY FULL
+GO
+ALTER DATABASE [sq_fanyuepan] SET  MULTI_USER
+GO
+ALTER DATABASE [sq_fanyuepan] SET PAGE_VERIFY CHECKSUM
+GO
+ALTER DATABASE [sq_fanyuepan] SET DB_CHAINING OFF
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'sq_fanyuepan', N'ON'
+GO
+USE [sq_fanyuepan]
+GO
+/****** Object:  Table [dbo].[chat_user_orgnization]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[chat_user_orgnization](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[orgname] [varchar](50) NOT NULL,
+	[orgphoto] [varchar](200) NOT NULL,
+	[addtime] [datetime] NOT NULL
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[chat_user_friendgroup_details]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[chat_user_friendgroup_details](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[groupid] [int] NOT NULL,
+	[friendid] [int] NOT NULL,
+ CONSTRAINT [PK_chat_user_friendgroup_details] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[chat_user_friendgroup]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[chat_user_friendgroup](
+	[groupid] [int] IDENTITY(1,1) NOT NULL,
+	[groupname] [varchar](50) NOT NULL,
+	[userid] [int] NOT NULL,
+ CONSTRAINT [PK_chat_user_friendgroup] PRIMARY KEY CLUSTERED
+(
+	[groupid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[chat_user]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[chat_user](
+	[userid] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](50) NOT NULL,
+	[photo] [varchar](200) NULL,
+	[pwd] [varchar](50) NULL,
+ CONSTRAINT [PK_chat_user] PRIMARY KEY CLUSTERED
+(
+	[userid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[chat_msg_history]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[chat_msg_history](
+	[id] [uniqueidentifier] NOT NULL,
+	[type] [int] NOT NULL,
+	[msg] [varchar](2000) NOT NULL,
+	[fromuser] [int] NOT NULL,
+	[groupid] [int] NOT NULL,
+	[addtime] [datetime] NOT NULL,
+ CONSTRAINT [PK_chat_msg_history] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'消息类型 1 普通消息 2 系统消息 3 文件消息' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'chat_msg_history', @level2type=N'COLUMN',@level2name=N'type'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'msg details' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'chat_msg_history', @level2type=N'COLUMN',@level2name=N'msg'
+GO
+/****** Object:  Table [dbo].[chat_friend_apply]    Script Date: 05/05/2016 11:55:22 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[chat_friend_apply](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[userid] [int] NOT NULL,
+	[applyid] [int] NOT NULL,
+	[addtime] [datetime] NOT NULL,
+	[handle] [int] NOT NULL,
+	[reason] [varchar](100) NULL,
+ CONSTRAINT [PK_chat_friend_apply] PRIMARY KEY CLUSTERED
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  View [dbo].[V_ChatHistory]    Script Date: 05/05/2016 11:55:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_ChatHistory]
+AS
+
+SELECT id,[type],msg,h.fromuser,h.groupid,h.addtime,name,c.photo FROM dbo.chat_msg_history h LEFT JOIN dbo.chat_user c ON h.fromuser=c.userid
+GO
+/****** Object:  View [dbo].[V_Chat_UserGroup]    Script Date: 05/05/2016 11:55:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_Chat_UserGroup]
+AS
+
+SELECT id,f.userid,d.groupid,f.groupname,d.friendid,c.name,c.photo FROM dbo.chat_user_friendgroup_details d LEFT JOIN dbo.chat_user_friendgroup f ON d.groupid=f.groupid
+LEFT JOIN chat_user c ON d.friendid = c.userid
+GO
+/****** Object:  View [dbo].[V_Chat_User_Apply]    Script Date: 05/05/2016 11:55:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_Chat_User_Apply]
+AS
+SELECT     A.userid, A.addtime, A.handle, A.reason, B.userid AS friendid, B.name, B.photo, A.id
+FROM         dbo.chat_friend_apply AS A LEFT OUTER JOIN
+                      dbo.chat_user AS B ON A.applyid = B.userid
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPane1', @value=N'[0E232FF0-B466-11cf-A24F-00AA00A3EFFF, 1.00]
+Begin DesignProperties =
+   Begin PaneConfigurations =
+      Begin PaneConfiguration = 0
+         NumPanes = 4
+         Configuration = "(H (1[40] 4[20] 2[20] 3) )"
+      End
+      Begin PaneConfiguration = 1
+         NumPanes = 3
+         Configuration = "(H (1 [50] 4 [25] 3))"
+      End
+      Begin PaneConfiguration = 2
+         NumPanes = 3
+         Configuration = "(H (1 [50] 2 [25] 3))"
+      End
+      Begin PaneConfiguration = 3
+         NumPanes = 3
+         Configuration = "(H (4 [30] 2 [40] 3))"
+      End
+      Begin PaneConfiguration = 4
+         NumPanes = 2
+         Configuration = "(H (1 [56] 3))"
+      End
+      Begin PaneConfiguration = 5
+         NumPanes = 2
+         Configuration = "(H (2 [66] 3))"
+      End
+      Begin PaneConfiguration = 6
+         NumPanes = 2
+         Configuration = "(H (4 [50] 3))"
+      End
+      Begin PaneConfiguration = 7
+         NumPanes = 1
+         Configuration = "(V (3))"
+      End
+      Begin PaneConfiguration = 8
+         NumPanes = 3
+         Configuration = "(H (1[56] 4[18] 2) )"
+      End
+      Begin PaneConfiguration = 9
+         NumPanes = 2
+         Configuration = "(H (1 [75] 4))"
+      End
+      Begin PaneConfiguration = 10
+         NumPanes = 2
+         Configuration = "(H (1[66] 2) )"
+      End
+      Begin PaneConfiguration = 11
+         NumPanes = 2
+         Configuration = "(H (4 [60] 2))"
+      End
+      Begin PaneConfiguration = 12
+         NumPanes = 1
+         Configuration = "(H (1) )"
+      End
+      Begin PaneConfiguration = 13
+         NumPanes = 1
+         Configuration = "(V (4))"
+      End
+      Begin PaneConfiguration = 14
+         NumPanes = 1
+         Configuration = "(V (2))"
+      End
+      ActivePaneConfig = 0
+   End
+   Begin DiagramPane =
+      Begin Origin =
+         Top = 0
+         Left = 0
+      End
+      Begin Tables =
+         Begin Table = "A"
+            Begin Extent =
+               Top = 6
+               Left = 38
+               Bottom = 126
+               Right = 180
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+         Begin Table = "B"
+            Begin Extent =
+               Top = 6
+               Left = 218
+               Bottom = 126
+               Right = 360
+            End
+            DisplayFlags = 280
+            TopColumn = 0
+         End
+      End
+   End
+   Begin SQLPane =
+   End
+   Begin DataPane =
+      Begin ParameterDefaults = ""
+      End
+   End
+   Begin CriteriaPane =
+      Begin ColumnWidths = 11
+         Column = 1440
+         Alias = 900
+         Table = 1170
+         Output = 720
+         Append = 1400
+         NewValue = 1170
+         SortType = 1350
+         SortOrder = 1410
+         GroupBy = 1350
+         Filter = 1350
+         Or = 1350
+         Or = 1350
+         Or = 1350
+      End
+   End
+End
+' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'V_Chat_User_Apply'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'V_Chat_User_Apply'
+GO
+/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriend]    Script Date: 05/05/2016 11:55:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+    -- Create date: <Create Date,,>
+        -- Description:	<Description,,>
+            -- =============================================
+            CREATE PROCEDURE [dbo].[Proc_Chat_AddFriend]
+            @userid INT,
+            @friendid INT
+            AS
+            BEGIN
+            -- SET NOCOUNT ON added to prevent extra result sets from
+            -- interfering with SELECT statements.
+            SET NOCOUNT ON;
+            DECLARE @groupid INT
+
+            IF NOT EXISTS (SELECT * FROM dbo.chat_user_friendgroup WHERE userid=@userid)
+            BEGIN
+            INSERT INTO dbo.chat_user_friendgroup (groupname,userid)
+            VALUES  ('我的好友'  -- groupname - varchar(50)
+            ,@userid -- userid - int
+            )
+            SET @groupid=@@IDENTITY
+            END
+            ELSE
+            BEGIN
+            SELECT @groupid= groupid FROM dbo.chat_user_friendgroup WHERE groupname='我的好友' AND userid=@userid
+            END
+
+            IF NOT EXISTS (SELECT * FROM chat_user_friendgroup_details WHERE groupid=@groupid AND friendid=@friendid)
+            begin
+
+            INSERT INTO dbo.chat_user_friendgroup_details (groupid,friendid)
+            VALUES  (@groupid  -- groupid - int
+            ,@friendid  -- friendid - int
+            )
+            end
+            END
+            GO
+            /****** Object:  StoredProcedure [dbo].[Proc_Chat_FriendApply]    Script Date: 05/05/2016 11:55:24 ******/
+            SET ANSI_NULLS ON
+            GO
+            SET QUOTED_IDENTIFIER ON
+            GO
+            CREATE PROCEDURE [dbo].[Proc_Chat_FriendApply]
+            @userid INT,
+            @applyid INT,
+            @reason VARCHAR(100)
+            AS
+            BEGIN
+            -- SET NOCOUNT ON added to prevent extra result sets from
+            -- interfering with SELECT statements.
+            SET NOCOUNT ON;
+
+            IF NOT EXISTS (SELECT * FROM dbo.chat_friend_apply WHERE userid=@userid AND applyid=@applyid AND handle=0)
+            begin
+            INSERT INTO dbo.chat_friend_apply (userid,applyid,addtime,handle,reason)
+            VALUES  (@userid  -- userid - int
+            ,@applyid -- applyid - int
+            ,GETDATE()  -- addtime - datetime
+            ,0  -- handle - bit
+            ,@reason  -- reason - varchar(100)
+            )
+            end
+            END
+            GO
+            /****** Object:  StoredProcedure [dbo].[Proc_Chat_AddMessage]    Script Date: 05/05/2016 11:55:24 ******/
+            SET ANSI_NULLS ON
+            GO
+            SET QUOTED_IDENTIFIER ON
+            GO
+            -- =============================================
+            -- Author:		<Author,,Name>
+                -- Create date: <Create Date,,>
+                    -- Description:	<Description,,>
+                        -- =============================================
+                        CREATE PROCEDURE [dbo].[Proc_Chat_AddMessage]
+                        @msgid VARCHAR(100),
+                        @type INT,
+                        @msg VARCHAR(200),
+                        @fromuser INT,
+                        @groupid INT
+                        AS
+                        BEGIN
+
+                        SET NOCOUNT ON;
+                        INSERT INTO dbo.chat_msg_history (id,[type],msg,fromuser,groupid,addtime)
+                        VALUES  (@msgid  -- id - uniqueidentifier
+                        ,@type -- type - int
+                        ,@msg  -- msg - varchar(2000)
+                        ,@fromuser  -- fromuser - int
+                        ,@groupid -- groupid - int
+                        ,GETDATE()  -- addtime - datetime
+                        )
+
+                        END
+                        GO
+                        /****** Object:  StoredProcedure [dbo].[Proc_Chat_LoginOrRegister]    Script Date: 05/05/2016 11:55:24 ******/
+                        SET ANSI_NULLS ON
+                        GO
+                        SET QUOTED_IDENTIFIER ON
+                        GO
+                        -- =============================================
+                        -- Author:		<Author,,Name>
+                            -- Create date: <Create Date,,>
+                                -- Description:	登录或者注册
+                                -- exec Proc_Chat_LoginOrRegister panzi,'','2222'
+                                -- =============================================
+                                CREATE PROCEDURE [dbo].[Proc_Chat_LoginOrRegister]
+                                @username VARCHAR(200),
+                                @userphoto VARCHAR(200),
+                                @userpwd VARCHAR(100)
+                                AS
+                                BEGIN
+
+                                SET @userphoto ='http://img1.gurucv.ms/image/2016/4/1/19b7dad404be4e2986f29d7a188a159c.png'
+                                -- SET NOCOUNT ON added to prevent extra result sets from
+                                -- interfering with SELECT statements.
+                                SET NOCOUNT ON;
+
+                                IF EXISTS(SELECT name FROM dbo.chat_user WHERE name=@username)
+                                BEGIN
+                                --已经存在该用户，执行登录逻辑
+                                SELECT userid,name,photo FROM dbo.chat_user WHERE name=@username AND pwd=@userpwd
+                                END
+                                ELSE
+                                BEGIN
+                                --不存在该用户，执行注册逻辑
+                                INSERT INTO dbo.chat_user (name,photo,pwd)
+                                VALUES  (@username  -- name - varchar(50)
+                                ,@userphoto  -- photo - varchar(200)
+                                ,@userpwd
+                                )
+
+                                SELECT userid,name,photo FROM dbo.chat_user WHERE userid=@@IDENTITY
+                                END
+                                END
+                                GO
+                                /****** Object:  StoredProcedure [dbo].[Proc_Chat_IsFriend]    Script Date: 05/05/2016 11:55:24 ******/
+                                SET ANSI_NULLS ON
+                                GO
+                                SET QUOTED_IDENTIFIER ON
+                                GO
+                                -- =============================================
+                                -- Author:		<Author,,Name>
+                                    -- Create date: <Create Date,,>
+                                        -- Description:	<Description,,>
+                                            -- exec Proc_Chat_IsFriend 1,2
+                                            -- =============================================
+                                            CREATE PROCEDURE [dbo].[Proc_Chat_IsFriend]
+                                            @userid INT,
+                                            @friendid int
+                                            AS
+                                            BEGIN
+                                            -- SET NOCOUNT ON added to prevent extra result sets from
+                                            -- interfering with SELECT statements.
+                                            SET NOCOUNT ON;
+
+                                            DECLARE @handle INT
+                                            DECLARE @friend INT
+                                            DECLARE @reason VARCHAR(100)
+                                            DECLARE @id INT
+
+                                            --获取第一条申请记录，并看结果  0申请添加为好友 1同意成为好友，2 已经拒绝
+                                            SELECT TOP 1 @handle=handle,@reason=reason,@id=id FROM V_Chat_User_Apply WHERE userid=@userid AND friendid=@friendid ORDER BY addtime desc
+                                            SELECT @friend=COUNT(1) FROM dbo.V_Chat_UserGroup WHERE userid=@userid AND friendid=@friendid
+
+                                            SELECT @handle AS handle,@friend AS friend,@reason AS reason,@id AS logid
+
+
+                                            END
+                                            GO
+                                            /****** Object:  StoredProcedure [dbo].[Proc_Chat_GetHistory]    Script Date: 05/05/2016 11:55:24 ******/
+                                            SET ANSI_NULLS ON
+                                            GO
+                                            SET QUOTED_IDENTIFIER ON
+                                            GO
+                                            -- =============================================
+                                            -- Author:		<Author,,Name>
+                                                -- Create date: <Create Date,,>
+                                                    -- Description:	<Description,,>
+
+                                                        -- exec Proc_Chat_GetHistory 21,''
+                                                        -- =============================================
+                                                        CREATE PROCEDURE [dbo].[Proc_Chat_GetHistory]
+                                                        @groupid INT
+                                                        ,@lastid VARCHAR(100)
+                                                        AS
+                                                        BEGIN
+                                                        -- SET NOCOUNT ON added to prevent extra result sets from
+                                                        -- interfering with SELECT statements.
+                                                        SET NOCOUNT ON;
+
+                                                        IF LEN(@lastid)>0
+                                                        BEGIN
+
+                                                        SELECT TOP 10
+                                                        *
+                                                        FROM   v_chathistory
+                                                        WHERE  groupid=@groupid AND addtime<(SELECT addtime
+                                                                                                    FROM v_chathistory
+                                                                                                    WHERE id=@lastid
+                                                                                                    )
+                                                                                                    ORDER BY addtime DESC
+                                                                                                    END;
+                                                                                                    ELSE
+                                                                                                    BEGIN
+                                                                                                    SELECT *
+                                                                                                    FROM (SELECT TOP 10
+                                                                                                    *
+                                                                                                    FROM v_chathistory
+                                                                                                    WHERE groupid=@groupid
+                                                                                                    ORDER BY addtime DESC
+                                                                                                    ) X
+                                                                                                    ORDER BY addtime ASC;
+                                                                                                    END;
+                                                                                                    END;
+                                                                                                    GO
+/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriendWithGroup]    Script Date: 05/05/2016 11:55:24 ******/
+                                                        SET ANSI_NULLS ON
+                                                        GO
+                                                        SET QUOTED_IDENTIFIER ON
+                                                        GO
+                                                        -- =============================================
+                                                        -- Author:		<Author,,Name>
+                                                            -- Create date: <Create Date,,>
+                                                                -- Description:	<Description,,>
+                                                                    -- =============================================
+                                                                    CREATE PROCEDURE [dbo].[Proc_Chat_AddFriendWithGroup]
+                                                                    @userid INT
+                                                                    ,@friendid INT
+                                                                    ,@isadd BIT
+                                                                    ,@id INT
+                                                                    AS
+                                                                    BEGIN
+                                                                    -- SET NOCOUNT ON added to prevent extra result sets from
+                                                                    -- interfering with SELECT statements.
+                                                                    SET NOCOUNT ON;
+
+                                                                    IF @isadd=1
+                                                                    BEGIN
+                                                                    EXEC dbo.Proc_Chat_AddFriend @userid=@userid, -- int
+                                                                    @friendid=@friendid; -- int
+                                                                    EXEC dbo.Proc_Chat_AddFriend @userid=@friendid, -- int
+                                                                    @friendid=@userid; -- int
+                                                                    UPDATE  dbo.chat_friend_apply
+                                                                    SET     handle=1
+                                                                    WHERE   id=@id AND userid=@userid AND applyid=@friendid;
+                                                                    END;
+                                                                    ELSE
+                                                                    BEGIN
+
+                                                                    UPDATE  dbo.chat_friend_apply
+                                                                    SET     handle=2
+                                                                    WHERE   id=@id AND userid=@userid AND applyid=@friendid;
+                                                                    END;
+
+                                                                    END;
+                                                                    GO
+                                                                    /****** Object:  StoredProcedure [dbo].[Proc_GetChatUserFriendList]    Script Date: 05/05/2016 11:55:24 ******/
+                                                                    SET ANSI_NULLS ON
+                                                                    GO
+                                                                    SET QUOTED_IDENTIFIER ON
+                                                                    GO
+                                                                    -- =============================================
+                                                                    -- Author:		<Author,,Name>
+                                                                        -- Create date: <Create Date,,>
+                                                                            -- Description:	<Description,,>
+                                                                                -- =============================================
+                                                                                CREATE PROCEDURE [dbo].[Proc_GetChatUserFriendList]
+                                                                                @userid INT
+                                                                                AS
+                                                                                BEGIN
+                                                                                -- SET NOCOUNT ON added to prevent extra result sets from
+                                                                                -- interfering with SELECT statements.
+                                                                                SET NOCOUNT ON;
+
+                                                                                SELECT DISTINCT groupid,groupname FROM V_Chat_UserGroup WHERE userid=@userid
+
+
+
+                                                                                SELECT groupid,friendid,name,photo FROM V_Chat_UserGroup WHERE userid=@userid
+
+                                                                                END
+                                                                                GO
+                                                                                /****** Object:  Default [DF_chat_user_orgnization_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                ALTER TABLE [dbo].[chat_user_orgnization] ADD  CONSTRAINT [DF_chat_user_orgnization_addtime]  DEFAULT (getdate()) FOR [addtime]
+                                                                                GO
+                                                                                /****** Object:  Default [DF_chat_msg_history_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                ALTER TABLE [dbo].[chat_msg_history] ADD  CONSTRAINT [DF_chat_msg_history_addtime]  DEFAULT (getdate()) FOR [addtime]
+                                                                                GO
+                                                                                /****** Object:  Default [DF_chat_friend_apply_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                ALTER TABLE [dbo].[chat_friend_apply] ADD  CONSTRAINT [DF_chat_friend_apply_addtime]  DEFAULT (getdate()) FOR [addtime]
+                                                                                GO
+                                                                                /****** Object:  Default [DF_chat_friend_apply_handle]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                ALTER TABLE [dbo].[chat_friend_apply] ADD  CONSTRAINT [DF_chat_friend_apply_handle]  DEFAULT ((0)) FOR [handle]
+                                                                                GO

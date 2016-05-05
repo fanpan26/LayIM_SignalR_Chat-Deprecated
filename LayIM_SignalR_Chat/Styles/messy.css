@@ -1,0 +1,138 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+}
+html,body{
+	height: 100%;
+	width: 100%;
+}
+body{
+	background: url(/Images/messy_body.png) #fffee6 no-repeat center bottom;
+	font-size:18px;
+}
+@font-face {
+    font-family:'MICON';
+    src:url('/font/icomoon.eot?b57vnb');
+    src:url('/font/icomoon.eot?b57vnb#iefix') format('embedded-opentype'),
+        url('/font/icomoon.ttf?b57vnb') format('truetype'),
+        url('/font/icomoon.woff?b57vnb') format('woff'),
+        url('/font/icomoon.svg?b57vnb#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.messy-content{
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	padding: 20px;
+	margin-top: -55px;
+	overflow: hidden;
+}
+.sys-name{
+	display: inline-block;
+	height: 77px;
+	line-height: 77px;
+	padding-left: 90px;
+	background: url(../Images/sys-logo.png) no-repeat left center;
+	color: #039dfb;
+	font-size: 35px;
+	font-family: "微软雅黑";
+	letter-spacing: 10px;
+}
+.sys-content{
+	margin-top: 55px;
+	background: #FFFFFF;
+	width: 540px;
+	padding: 30px 50px;
+	box-shadow: rgba(0,0,0,.2) 0 0 10px;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.sys-content-title{
+	font-family: "黑体";
+	font-size: 20px;
+	color: #999999;
+	letter-spacing: 2px;
+	overflow: hidden;
+}
+.messy-list{
+	margin-top: 30px;
+	overflow: hidden;
+}
+.messy-list li{
+	list-style: none;
+	position: relative;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+.messy-list .messy-input{
+	width: 100%;
+	height: 40px;
+	padding: 10px;
+	border: #e5e5e5 1px solid;
+	border-radius: 4px;
+	font-size: 16px;
+	overflow: hidden;
+}
+.messy-list .messy-item{
+	position: absolute;
+	top: 3px;
+	right: 2px;
+	bottom: 3px;
+	background: #c0c0c0;
+	border-radius: 4px;
+	font-size: 16px;
+	color: #FFFFFF;
+	padding: 8px 15px;
+	cursor: pointer;
+}
+.messy-list .messy-item.disabled{background: #e3e2e2;cursor: no-drop;}
+.messy-txt{
+	display: block;
+	position: relative;
+	color: #999999;
+	text-decoration: none;
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+}
+.messy-txt:hover{text-decoration: underline;}
+.messy-txt.align-left{text-align: left;}
+.messy-txt.align-right{text-align: right;}
+.messy-txt.forget-pwd{
+	padding-left: 20px;
+}
+.messy-txt.forget-pwd:before{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	font-family: 'MICON';
+	content: '\e91c';
+	font-size: 14px;
+}
+.messy-button{
+	margin-top: 25px;
+	background: #81cefd;
+	height: 42px;
+	font-family: "黑体";
+	font-size: 20px;
+	padding: 11px 0;
+	cursor: pointer;
+	color: #FFFFFF;
+	border-radius: 4px;
+	letter-spacing: 15px;
+	overflow: hidden;
+}
+.messy-copy{
+	color: #d5d5d5;
+	font-size: 16px;
+	margin-top: 25px;
+}

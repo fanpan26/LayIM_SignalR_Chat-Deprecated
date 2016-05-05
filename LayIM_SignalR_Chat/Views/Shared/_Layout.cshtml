@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的 ASP.NET 应用程序</title>
+    <link href="/layim/layim/css/layim.css" type="text/css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2016级 xx专业毕业设计</p>
+        </footer>
+    </div>
+
+      @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="http://localhost:60661/layim/hubs"></script>
+    <script src="~/Scripts/signalr/client.hub.js"></script>
+    <script src="/layim/layim/lay/lib.js"></script>
+    <script src="/layim/layim/lay/layer/layer.min.js"></script>
+    <script src="/layim/layim/lay/layer/extend/layer.ext.js"></script>
+    <script src="/layim/layim/lay/layim.js"></script>
+
+    <script>
+        $(function () {
+            var isLogin = location.href.toLowerCase().indexOf('login') > -1;
+            var userInfo = localStorage.getItem("layim_current_user");
+            if (userInfo) {
+                if (isLogin) {
+                    window.location.href = "/";
+                } else {
+                    csClient.init({
+                        serverUrl: 'http://localhost:60661/layim'
+                    });
+                }
+            } else {
+                if (!isLogin) {
+                    window.location.href = "/home/login";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\LayIM.Util.dll
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\LayIM.Util.pdb
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\obj\Debug\LayIM.Util.dll
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\obj\Debug\LayIM.Util.pdb
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\LayIM.Model.dll
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\LayIM.Model.pdb
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\obj\Debug\LayIM.Util.csprojResolveAssemblyReference.cache
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\Newtonsoft.Json.dll
+D:\Project\LayIM_SignalR_Chat\LayIM.Util\bin\Debug\Newtonsoft.Json.xml

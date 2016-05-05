@@ -1,0 +1,59 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>登录</title>
+    <link rel="stylesheet" href="/Styles/main.css" />
+    <link rel="stylesheet" href="/Styles/messy.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            var isLogin = true;
+                var userInfo = localStorage.getItem("layim_current_user");
+                if (userInfo) {
+                    window.location.href = "/";
+                }
+
+
+            $(document).on('click', '#login', function () {
+                var username = $('#loginName').val();
+                var pwd = $('#loginPwd').val();
+                $.post("/home/login", { username: username, pwd: pwd }, function (result) {
+                    var t = JSON.parse(result.data);
+                    if (t.length) {
+                        localStorage.setItem("layim_current_user", JSON.stringify(t[0]));
+                        //登录成功跳转
+                        location.href = "/";
+                    } else {
+                        alert("密码不正确");
+                    }
+                });
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="messy-content">
+        <form id="loginForm">
+            <div class="sys-content">
+                <div class="sys-content-title">在线聊天室</div>
+                <ul class="messy-list">
+                    <li>
+                        <input type="text" class="messy-input" placeholder="账号" id="loginName" msat="nonempty" />
+                    </li>
+                    <li>
+                        <input type="password" class="messy-input" placeholder="密码" id="loginPwd" msat="nonempty" />
+                    </li>
+                </ul>
+                <div class="messy-button" id="login">登录</div>
+            </div>
+        </form>
+        <div class="messy-copy">北华航天工业学院（如果用户名不存在会自动注册）</div>
+    </div>
+    <div class="manageBody" id="body-manageBody"></div>
+</body>
+</html>
