@@ -1,5 +1,5 @@
 
-###直接上图，简单粗暴。还是用signalR做的一个小聊天程序。
+###直接上图，简单粗暴。还是用signalR做的一个小聊天程序。（UI是参考开源的一个LayIm,原作者贤心。我只是做了一些调整。）
 ####数据库脚本在sql.html中
 ####相关系列博客：http://www.cnblogs.com/panzi/p/5144824.html
 ![](http://img1.gurucv.com/image/2016/5/5/fba5cf42b8514262bb2564694f52d293.png)  
