@@ -68,7 +68,7 @@ namespace LayIM.BLL
         /// <param name="fromuser"></param>
         /// <param name="groupid"></param>
         /// <returns></returns>
-        public static JsonResult AddMessage(int type, string msg, int fromuser, int groupid,string msgid)
+        public static JsonResult AddMessage(int type, string msg, int fromuser, int groupid,string msgid,string images,string files)
         {
             Task.Factory.StartNew(() =>
              {
@@ -79,7 +79,9 @@ namespace LayIM.BLL
                 DBUtil.MakeParameterInt("type",type),
                 DBUtil.MakeParameterVarChar("msg",msg),
                 DBUtil.MakeParameterInt("fromuser",fromuser),
-                DBUtil.MakeParameterInt("groupid",groupid)
+                DBUtil.MakeParameterInt("groupid",groupid),
+                DBUtil.MakeParameterVarChar("images",images),
+                DBUtil.MakeParameterVarChar("files",files)
              };
                  var result = DBUtil.ExecuteNonQueryStoreProcedure(spName, parameters.ToArray());
                  return new JsonResult
@@ -196,6 +198,8 @@ namespace LayIM.BLL
                     },
                     addtime = dr["addtime"].ToString(),
                     message = dr["msg"].ToString(),
+                    files=JsonHelper.DeserializeObject<List<ChatImg>>(dr["files"].ToString()),
+                    images = JsonHelper.DeserializeObject<List<ChatImg>>(dr["images"].ToString()),
                     msgtype = MessageType.Custom,
                     type = type,
                     msgid=dr["id"].ToString(),

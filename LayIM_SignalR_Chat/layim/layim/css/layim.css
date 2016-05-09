@@ -146,7 +146,14 @@ li{list-style:none;}
 
 .layim_min{display:none; position:absolute; left:-190px; bottom:-1px; width:160px; height:32px; line-height:32px; padding:0 10px; overflow:hidden; text-overflow: ellipsis; white-space:nowrap; border:1px solid #ccc; box-shadow: 0 0 5px rgba(0,0,75,.2); background-color:#FCFDFA; cursor:pointer;}
 
-
+.upload .upload-input{
+	position:absolute;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	opacity:0;
+}
 
 
 

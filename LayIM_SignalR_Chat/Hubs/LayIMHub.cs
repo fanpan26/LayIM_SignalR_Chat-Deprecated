@@ -88,7 +88,7 @@ namespace LayIM_SignalR_Chat.Hubs
             result.status = 1;
             result.msgid = Guid.NewGuid().ToString();
             //保存到数据库
-            UserBLL.AddMessage(1, result.message, result.fromuser.id, int.Parse(groupId), result.msgid);
+            UserBLL.AddMessage(1, result.message, result.fromuser.id, int.Parse(groupId), result.msgid, JsonHelper.SerializeObject(result.images), JsonHelper.SerializeObject(result.files));
             //发送给客户端
            return Clients.Group(groupId).receiveMessage(result);
         }
@@ -105,7 +105,7 @@ namespace LayIM_SignalR_Chat.Hubs
             result.status = 1;
             result.msgid = Guid.NewGuid().ToString();
             //保存到数据库
-            UserBLL.AddMessage(1, result.message, result.fromuser.id, result.touser.id,result.msgid);
+            UserBLL.AddMessage(1, result.message, result.fromuser.id, result.touser.id,result.msgid,JsonHelper.SerializeObject(result.images),JsonHelper.SerializeObject(result.files));
             //发送给客户端
             return Clients.Group(groupId).receiveMessage(result);
         }

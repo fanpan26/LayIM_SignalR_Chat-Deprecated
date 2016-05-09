@@ -2,6 +2,7 @@
 using LayIM.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -88,6 +89,25 @@ namespace LayIM_SignalR_Chat.Controllers
         public ViewResult Login()
         {
             return View();
+        }
+
+        public JsonResult UploadFile(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+                string fileName = Guid.NewGuid().ToString();
+                string fullFileName = string.Format("{0}{1}", fileName, fileExtension);
+                string oldFileName = Path.GetFileName(file.FileName);
+
+                string fileSavePath = string.Format("{0}{1}", Server.MapPath("/upload/"),fullFileName);
+                string url = "/upload/" + fullFileName;
+                file.SaveAs(fileSavePath);
+                bool isImg = FileExtension.isImage(fileExtension);
+
+                return Json(new { url = url, name = oldFileName, ext = fileExtension, name1 = fullFileName, t = isImg ? "img" : "file" }, JsonRequestBehavior.DenyGet);
+            }
+            return Json("", JsonRequestBehavior.DenyGet);
         }
     }
 }

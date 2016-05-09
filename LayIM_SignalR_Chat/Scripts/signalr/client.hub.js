@@ -88,8 +88,12 @@
             },
             //发送，增加最后一个参数t， one ，group 群聊还是单体聊天
             send: function (msg, userid, username, userphoto, rid, t) {
+                // var chatImgArr = [];
+               // var chatFilesArr = [];
                 var obj = {
                     message: msg,
+                    images: chatImgArr,
+                    files: chatFilesArr,
                     fromuser: {
                         id: userid,
                         name: username,
@@ -222,6 +226,23 @@
                     + '<div class="layim_chatsay">' + param.content + '<em class="layim_zero"></em></div>'
                 + '</li>';
             };
+            log.handleMessage = function (content, images, files) {
+                if (images && images.length > 0) {
+                    for (var i = 0; i < images.length; i++) {
+                        content = content.replace(images[i].name, '<img src="' + images[i].url + '" width="200" height="200"/>');
+                    }
+                }
+                if (files && files.length > 0) {
+                    for (var i = 0; i < files.length; i++) {
+                        var ext = files[i].name.split('.')[1];
+                        ext = ext.substr(0, ext.length - 1);
+                        var img = '<img src="/images/' + ext + '.png" width="30" height="30"/>';
+                        content = content.replace(files[i].name,'<a href="' + files[i].url + '">' + img + '' + files[i].name + '</a>');
+                    }
+                  //  
+                }
+                return content;
+            }
             //上述代码还是layim里的代码，只不过拼接html的时候，参数采用signalR返回的参数
             var type = result.fromuser.id == currentUser.id ? "me" : "";//如果发送人的id==当前用户的id，那么这条消息类型为me
             //拼接html 直接调用layim里的代码
@@ -231,7 +252,7 @@
                 face: result.fromuser.face,
                 msgid:result.msgid,
                 //content: replace_em(result.message)
-                content:result.message
+                content:log.handleMessage(result.message,result.images,result.files)
             }, type));
             //滚动条处理
             if (log.imarea.length) {

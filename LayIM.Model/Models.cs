@@ -47,10 +47,17 @@ namespace LayIM.Model
         public User fromuser { get; set; }
         public User touser { get; set; }
         public string message { get; set; }
+        public List<ChatImg> images { get; set; }
+        public List<ChatImg> files { get; set; }
         public string addtime { get; set; }
         public string msgid { get; set; }
     }
 
+    public class ChatImg
+    {
+        public string name { get; set; }
+        public string url { get; set; }
+    }
 
     /// <summary>
     /// 用户好友分组

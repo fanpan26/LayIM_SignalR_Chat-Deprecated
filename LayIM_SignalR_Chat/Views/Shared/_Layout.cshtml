@@ -25,8 +25,11 @@
     <script src="/layim/layim/lay/layer/layer.min.js"></script>
     <script src="/layim/layim/lay/layer/extend/layer.ext.js"></script>
     <script src="/layim/layim/lay/layim.js"></script>
-
+    <script src="~/Scripts/jquery.form.js"></script>
     <script>
+        var chatImgArr = [];
+        var chatFilesArr = [];
+
         $(function () {
             var isLogin = location.href.toLowerCase().indexOf('login') > -1;
             var userInfo = localStorage.getItem("layim_current_user");
@@ -44,6 +47,36 @@
                 }
             }
         });
+
+        function fileUploadSuccess(result) {
+            //{url: "/upload/e417d228-9015-42ed-b1ef-b8c099ce8891.png", name: "QQ图片20160506192145.png", ext: ".png", name1: "e417d228-9015-42ed-b1ef-b8c099ce8891.png", t: "img"}
+            var $text = $('#layim_write');
+            var txt = $text.val();
+            var isImg = result.t == "img";
+            var type = isImg ? '图片' : '附件';
+            var newName = '[' + type + '：' + result.name + ']';
+            txt = txt + newName;
+           
+            $text.val(txt);
+            var arr = { name: newName, url: result.url };
+            if (isImg) {
+                chatImgArr.push(arr);
+            } else {
+                chatFilesArr.push(arr);
+            }
+
+        }
+
+        function save(isImg) {
+            var options = {
+
+                beforeSubmit: function () { },
+                error: function () { },
+                success: fileUploadSuccess
+            };
+            var id = isImg ? 'filePostImage' : 'filePostFile';
+            $('#' + id).ajaxSubmit(options);
+        }
     </script>
 </body>
 </html>

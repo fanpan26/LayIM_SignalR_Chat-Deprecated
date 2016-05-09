@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="FileExtension.cs" />
     <Compile Include="JsonHelper.cs" />
     <Compile Include="MessageHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
