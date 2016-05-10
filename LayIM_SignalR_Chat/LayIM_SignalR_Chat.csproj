@@ -207,6 +207,7 @@
     <Content Include="Images\pptx.png" />
     <Content Include="Images\psd.png" />
     <Content Include="Images\rar.png" />
+    <Content Include="Images\register.png" />
     <Content Include="Images\txt.png" />
     <Content Include="Images\xls.png" />
     <Content Include="Images\xlsx.png" />

@@ -104,7 +104,7 @@ namespace LayIM.BLL
                 id = 1,
                 name = "默认分组",
                 nums = 1,
-                item = new List<User> { new User { id = 0, name = "注册用户", face = "http://img1.gurucv.ms/image/2016/4/18/1381666835cc491598ad5a73fcb2bd5b.png" } }
+                item = new List<User> { new User { id = 0, name = "注册用户", face = "/images/register.png" } }
             });
             var json = new JsonResult
             {
