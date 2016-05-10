@@ -279,5 +279,14 @@ namespace LayIM.BLL
             DBUtil.ExecuteNonQueryStoreProcedure(spName, parameters.ToArray());
         }
 
+        public static bool UpdateUserPhoto(string photo, int userid)
+        {
+            string sql = "UPDATE chat_user SET photo = @photo WHERE userid=@userid";
+            var parameters = new List<SqlParameter> {
+                DBUtil.MakeParameterInt("userid",userid),
+                DBUtil.MakeParameterVarChar("photo",photo)
+            };
+            return DBUtil.ExecuteNonQuerySQL(sql, parameters.ToArray()) > 0;
+        }
     }
 }

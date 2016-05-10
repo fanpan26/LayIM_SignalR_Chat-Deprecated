@@ -67,15 +67,30 @@
 
         }
 
-        function save(isImg) {
+
+        function save(i) {
+            var formName = "";
+            switch (i) {
+                case 1://上传聊天图片
+                    formName = "filePostImage";
+                    break;
+                case 2://上传附件
+                    formName = "filePostFile";
+                    break;
+                case 3://修改头像
+                    formName = "filePostUserPhoto";
+                    break;
+            }
+            var updatePhotoSuccess = function () {
+                alert("头像更换成功");
+            };
             var options = {
 
                 beforeSubmit: function () { },
                 error: function () { },
-                success: fileUploadSuccess
+                success: i == 3 ? updatePhotoSuccess : fileUploadSuccess
             };
-            var id = isImg ? 'filePostImage' : 'filePostFile';
-            $('#' + id).ajaxSubmit(options);
+            $('#' + formName).ajaxSubmit(options);
         }
     </script>
 </body>

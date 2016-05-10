@@ -91,7 +91,7 @@ namespace LayIM_SignalR_Chat.Controllers
             return View();
         }
 
-        public JsonResult UploadFile(HttpPostedFileBase file)
+        public JsonResult UploadFile(HttpPostedFileBase file,int userid=0)
         {
             if (file != null && file.ContentLength > 0)
             {
@@ -104,7 +104,9 @@ namespace LayIM_SignalR_Chat.Controllers
                 string url = "/upload/" + fullFileName;
                 file.SaveAs(fileSavePath);
                 bool isImg = FileExtension.isImage(fileExtension);
-
+                if (userid > 0) {
+                    UserBLL.UpdateUserPhoto(url, userid);
+                }
                 return Json(new { url = url, name = oldFileName, ext = fileExtension, name1 = fullFileName, t = isImg ? "img" : "file" }, JsonRequestBehavior.DenyGet);
             }
             return Json("", JsonRequestBehavior.DenyGet);

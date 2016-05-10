@@ -176,7 +176,11 @@
         },
         agreeWithFriend: function (sid, rid, agree,logid) {
             $.post('/executeapply', { userid: sid, applyid: rid, isagree: agree, logid: logid }, function (result) {
-                console.log(result);
+                if (agree) {
+                    $('#chat_isfriend_text').html('对方和您已经是好友啦，赶紧聊聊天吧');
+                } else {
+                    $('#chat_isfriend_text').html('您已经拒绝了对方的好友请求');
+                }
             });
         },
         addFriend: function (sid,rid) {
