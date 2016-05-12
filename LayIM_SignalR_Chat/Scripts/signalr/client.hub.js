@@ -88,6 +88,13 @@
             },
             //发送，增加最后一个参数t， one ，group 群聊还是单体聊天
             send: function (msg, userid, username, userphoto, rid, t) {
+
+                var v = localStorage.getItem("layim_current_user");
+                if (v) {
+                    user = JSON.parse(v);
+                    userphoto = user.photo;
+                }
+
                 // var chatImgArr = [];
                // var chatFilesArr = [];
                 var obj = {

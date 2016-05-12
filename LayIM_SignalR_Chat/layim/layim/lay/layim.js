@@ -49,7 +49,7 @@
                     face: user.photo
                 };
                 return userJson;
-            }else {
+            } else {
                 location.href = '/home/login';
             }
         })(),
@@ -93,7 +93,8 @@
         var node = xxim.node;
         node.tabs.eq(index).addClass('xxim_tabnow').siblings().removeClass('xxim_tabnow');
         node.list.eq(index).show().siblings('.xxim_list').hide();
-        if (node.list.eq(index).find('li').length === 0) {
+        if (node.list.eq(index).find('li').length === 0 || index == 0) {
+
             xxim.getDates(index);
         }
     };
