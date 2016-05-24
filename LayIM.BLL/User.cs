@@ -68,13 +68,12 @@ namespace LayIM.BLL
         /// <param name="fromuser"></param>
         /// <param name="groupid"></param>
         /// <returns></returns>
-        public static JsonResult AddMessage(int type, string msg, int fromuser, int groupid,string msgid,string images,string files)
+        public static JsonResult AddMessage(int type, string msg, int fromuser, int groupid, string msgid, string images, string files)
         {
-            Task.Factory.StartNew(() =>
-             {
-                 var spName = "Proc_Chat_AddMessage";
 
-                 var parameters = new List<SqlParameter> {
+            var spName = "Proc_Chat_AddMessage";
+
+            var parameters = new List<SqlParameter> {
                      DBUtil.MakeParameterVarChar("msgid",msgid),
                 DBUtil.MakeParameterInt("type",type),
                 DBUtil.MakeParameterVarChar("msg",msg),
@@ -83,15 +82,19 @@ namespace LayIM.BLL
                 DBUtil.MakeParameterVarChar("images",images),
                 DBUtil.MakeParameterVarChar("files",files)
              };
-                 var result = DBUtil.ExecuteNonQueryStoreProcedure(spName, parameters.ToArray());
-                 return new JsonResult
-                 {
-                     status = result > 0 ? 1 : 0,
-                     data = ""
-                 };
-             });
-            return null;
+            var result = DBUtil.ExecuteNonQueryStoreProcedure(spName, parameters.ToArray());
+            return new JsonResult
+            {
+                status = result > 0 ? 1 : 0,
+                data = ""
+            };
         }
+
+        public static JsonResult AddMessage(ChatMessageResult result)
+        {
+            return AddMessage(1, result.message, result.fromuser.id, int.Parse(result.groupid), result.msgid, JsonHelper.SerializeObject(result.images), JsonHelper.SerializeObject(result.files));
+        }
+       
         /// <summary>
         /// 获取默认分组
         /// </summary>

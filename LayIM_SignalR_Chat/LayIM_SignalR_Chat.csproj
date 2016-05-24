@@ -375,6 +375,10 @@
       <Project>{7df39b57-3cb2-4e50-8770-3591966fa205}</Project>
       <Name>LayIM.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LayIM.Queue\LayIM.Queue.csproj">
+      <Project>{e34b0fe6-1465-4f24-97d3-7783e6ce7abb}</Project>
+      <Name>LayIM.Queue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LayIM.Util\LayIM.Util.csproj">
       <Project>{c096125f-fe06-4ba0-9991-20ff737f04d5}</Project>
       <Name>LayIM.Util</Name>

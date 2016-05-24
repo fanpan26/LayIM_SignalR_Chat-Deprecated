@@ -90,3 +90,7 @@ D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\zh-Hans\Microsoft.Owin.Secu
 D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\zh-Hans\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\obj\Debug\LayIM_SignalR_Chat.dll
 D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\obj\Debug\LayIM_SignalR_Chat.pdb
+D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\LayIM.Queue.dll
+D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\RabbitMQ.NETClient.Tool.dll
+D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\RabbitMQ.Client.dll
+D:\Project\LayIM_SignalR_Chat\LayIM_SignalR_Chat\bin\LayIM.Queue.pdb

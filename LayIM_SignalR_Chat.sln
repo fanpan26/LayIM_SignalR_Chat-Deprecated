@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.BLL", "LayIM.BLL\LayI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Util", "LayIM.Util\LayIM.Util.csproj", "{C096125F-FE06-4BA0-9991-20FF737F04D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Queue", "LayIM.Queue\LayIM.Queue.csproj", "{E34B0FE6-1465-4F24-97D3-7783E6CE7ABB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C096125F-FE06-4BA0-9991-20FF737F04D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C096125F-FE06-4BA0-9991-20FF737F04D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C096125F-FE06-4BA0-9991-20FF737F04D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E34B0FE6-1465-4F24-97D3-7783E6CE7ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34B0FE6-1465-4F24-97D3-7783E6CE7ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E34B0FE6-1465-4F24-97D3-7783E6CE7ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E34B0FE6-1465-4F24-97D3-7783E6CE7ABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

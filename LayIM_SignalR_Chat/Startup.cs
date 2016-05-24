@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using LayIM.Queue;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;
 
@@ -17,6 +18,9 @@ namespace LayIM_SignalR_Chat
                 };
                 map.RunSignalR(hubConfiguration);
             });
+
+            //开启队列监听
+            ChatQueue.StartListeningChat();
         }
     }
 }

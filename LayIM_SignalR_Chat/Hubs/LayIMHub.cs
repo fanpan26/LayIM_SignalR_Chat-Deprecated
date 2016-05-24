@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LayIM.Util;
 using LayIM.Model;
 using LayIM.BLL;
+using LayIM.Queue;
 
 namespace LayIM_SignalR_Chat.Hubs
 {
@@ -83,14 +84,19 @@ namespace LayIM_SignalR_Chat.Hubs
         public Task ClientSendMsgToClient(ChatMessageResult result)
         {
             var groupId = MessageHelper.GetGroupName(result.fromuser.id, result.touser.id);
+            result.groupid = groupId;
             result.type = Config.Chat_One;//1v1
             result.msgtype = MessageType.Custom;//聊天消息，非系统消息
             result.status = 1;
             result.msgid = Guid.NewGuid().ToString();
-            //保存到数据库
-            UserBLL.AddMessage(1, result.message, result.fromuser.id, int.Parse(groupId), result.msgid, JsonHelper.SerializeObject(result.images), JsonHelper.SerializeObject(result.files));
+            //发送给队列
+            ChatQueue.PublishMessage(result);
+            /*
+           //如果没有队列的话，就将上边的注释掉然后切换到直接添加到数据库
+            //UserBLL.AddMessage(result);
+            */
             //发送给客户端
-           return Clients.Group(groupId).receiveMessage(result);
+            return Clients.Group(groupId).receiveMessage(result);
         }
         /// <summary>
         /// 群组发送消息
@@ -100,12 +106,17 @@ namespace LayIM_SignalR_Chat.Hubs
         public Task ClientSendMsgToGroup(ChatMessageResult result)
         {
             var groupId = result.touser.id == 0 ? Config.Default_Group_Id : result.touser.id.ToString();
+            result.groupid = groupId;
             result.type = Config.Chat_Group;//1v1
             result.msgtype = MessageType.Custom;//聊天消息，非系统消息
             result.status = 1;
             result.msgid = Guid.NewGuid().ToString();
-            //保存到数据库
-            UserBLL.AddMessage(1, result.message, result.fromuser.id, result.touser.id,result.msgid,JsonHelper.SerializeObject(result.images),JsonHelper.SerializeObject(result.files));
+            //发送给队列
+            ChatQueue.PublishMessage(result);
+            /*
+             //如果没有队列的话，就将上边的注释掉然后切换到直接添加到数据库
+            //UserBLL.AddMessage(result);
+             */
             //发送给客户端
             return Clients.Group(groupId).receiveMessage(result);
         }

@@ -51,6 +51,10 @@ namespace LayIM.Model
         public List<ChatImg> files { get; set; }
         public string addtime { get; set; }
         public string msgid { get; set; }
+        public string groupid
+        {
+            get; set;
+        }
     }
 
     public class ChatImg
