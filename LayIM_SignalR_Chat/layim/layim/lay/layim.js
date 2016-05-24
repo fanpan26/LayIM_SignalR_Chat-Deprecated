@@ -688,7 +688,7 @@
                         str += '<li class="xxim_liston">'
                             + '<ul class="xxim_chatlist">';
                         for (; i < myflen; i++) {
-                            str += '<li data-id="' + datas.data[i].id + '" class="xxim_childnode" type="one"><img data-img="img_face_' + datas.data[i].id + '" src="' + datas.data[i].face + '"  class="xxim_oneface"><span  class="xxim_onename">' + datas.data[i].name + '</span><em class="xxim_time">' + datas.data[i].handle + '</em></li>';
+                            str += '<li data-id="' + datas.data[i].id + '" class="xxim_childnode" type="one"><img data-img="img_face_' + datas.data[i].id + '" src="' + datas.data[i].face + '"  class="xxim_oneface"><span  class="xxim_onename">' + datas.data[i].name + '</span><em class="xxim_time" id="friend_apply_' + datas.data[i].id + '">' + datas.data[i].handle + '</em></li>';
                         }
                         str += '</ul></li>';
                     }

@@ -186,8 +186,10 @@
             $.post('/executeapply', { userid: sid, applyid: rid, isagree: agree, logid: logid }, function (result) {
                 if (agree) {
                     $('#chat_isfriend_text').html('对方和您已经是好友啦，赶紧聊聊天吧');
+                    $('#friend_apply_' + rid).html("已同意该好友申请");
                 } else {
                     $('#chat_isfriend_text').html('您已经拒绝了对方的好友请求');
+                    $('#friend_apply_' + rid).html("已拒绝该好友申请");
                 }
             });
         },
