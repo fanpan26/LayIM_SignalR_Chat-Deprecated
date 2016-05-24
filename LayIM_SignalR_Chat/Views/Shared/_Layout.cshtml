@@ -87,6 +87,8 @@
                     user.photo = result.url;
                     var newUser = JSON.stringify(user);
                     localStorage.setItem("layim_current_user", newUser);
+                    //更换所有头像
+                    $('img[data-img="img_face_' + user.userid+'"]').attr('src', result.url);
                 }
             };
             var options = {

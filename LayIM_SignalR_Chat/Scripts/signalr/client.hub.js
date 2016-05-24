@@ -110,6 +110,7 @@
                         id: rid
                     }
                 };
+                console.log(obj);
                 switch (t) {
                     case csHub.chatType.one:
                         this.ctocsend(obj);
@@ -226,9 +227,9 @@
                             if (type === 'me') {
                                 return '<span class="layim_chattime">' + param.time + '</span>'
                                        + '<span class="layim_chatname">' + param.name + '</span>'
-                                       + '<img src="' + param.face + '" >';
+                                       + '<img data-img="img_face_' + param.id + '" src="' + param.face + '" >';
                             } else {
-                                return '<img src="' + param.face + '" >'
+                                return '<img data-img="img_face_' + param.id + '" src="' + param.face + '" >'
                                        + '<span class="layim_chatname">' + param.name + '</span>'
                                        + '<span class="layim_chattime">' + param.time + '</span>';
                             }
@@ -237,20 +238,22 @@
                     + '<div class="layim_chatsay">' + param.content + '<em class="layim_zero"></em></div>'
                 + '</li>';
             };
+            //images 为图片数组  files为附件数组  content为原消息
             log.handleMessage = function (content, images, files) {
+                //处理替换图片消息
                 if (images && images.length > 0) {
                     for (var i = 0; i < images.length; i++) {
                         content = content.replace(images[i].name, '<img src="' + images[i].url + '" width="200" height="200"/>');
                     }
                 }
+                //处理替换附件消息
                 if (files && files.length > 0) {
                     for (var i = 0; i < files.length; i++) {
                         var ext = files[i].name.split('.')[1];
                         ext = ext.substr(0, ext.length - 1);
                         var img = '<img src="/images/' + ext + '.png" width="30" height="30"/>';
                         content = content.replace(files[i].name,'<a href="' + files[i].url + '">' + img + '' + files[i].name + '</a>');
-                    }
-                  //  
+                    } 
                 }
                 return content;
             }
@@ -259,6 +262,7 @@
             //拼接html 直接调用layim里的代码
             log.imarea.append(log.html({
                 time: result.addtime,
+                id:result.fromuser.id,
                 name: result.fromuser.name,
                 face: result.fromuser.face,
                 msgid:result.msgid,

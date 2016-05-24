@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [sq_fanyuepan]    Script Date: 05/05/2016 11:55:21 ******/
+/****** Object:  Database [sq_fanyuepan]    Script Date: 05/24/2016 11:12:57 ******/
 CREATE DATABASE [sq_fanyuepan] ON  PRIMARY
 ( NAME = N'sq_fanyuepan', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10_50.MSSQLSERVER\MSSQL\DATA\sq_fanyuepan.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON
@@ -73,7 +73,7 @@ EXEC sys.sp_db_vardecimal_storage_format N'sq_fanyuepan', N'ON'
 GO
 USE [sq_fanyuepan]
 GO
-/****** Object:  Table [dbo].[chat_user_orgnization]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_user_orgnization]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -89,7 +89,7 @@ CREATE TABLE [dbo].[chat_user_orgnization](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[chat_user_friendgroup_details]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_user_friendgroup_details]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -104,7 +104,7 @@ CREATE TABLE [dbo].[chat_user_friendgroup_details](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[chat_user_friendgroup]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_user_friendgroup]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -123,7 +123,7 @@ CREATE TABLE [dbo].[chat_user_friendgroup](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[chat_user]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_user]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,7 +143,7 @@ CREATE TABLE [dbo].[chat_user](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[chat_msg_history]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_msg_history]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -157,6 +157,8 @@ CREATE TABLE [dbo].[chat_msg_history](
 	[fromuser] [int] NOT NULL,
 	[groupid] [int] NOT NULL,
 	[addtime] [datetime] NOT NULL,
+	[images] [varchar](8000) NULL,
+	[files] [varchar](8000) NULL,
  CONSTRAINT [PK_chat_msg_history] PRIMARY KEY CLUSTERED
 (
 	[id] ASC
@@ -169,7 +171,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'消息类型 1
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'msg details' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'chat_msg_history', @level2type=N'COLUMN',@level2name=N'msg'
 GO
-/****** Object:  Table [dbo].[chat_friend_apply]    Script Date: 05/05/2016 11:55:22 ******/
+/****** Object:  Table [dbo].[chat_friend_apply]    Script Date: 05/24/2016 11:12:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -191,7 +193,7 @@ CREATE TABLE [dbo].[chat_friend_apply](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  View [dbo].[V_ChatHistory]    Script Date: 05/05/2016 11:55:23 ******/
+/****** Object:  View [dbo].[V_ChatHistory]    Script Date: 05/24/2016 11:12:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -199,9 +201,9 @@ GO
 CREATE VIEW [dbo].[V_ChatHistory]
 AS
 
-SELECT id,[type],msg,h.fromuser,h.groupid,h.addtime,name,c.photo FROM dbo.chat_msg_history h LEFT JOIN dbo.chat_user c ON h.fromuser=c.userid
+SELECT id,[type],msg,h.fromuser,h.groupid,h.addtime,name,c.photo,h.images,h.files FROM dbo.chat_msg_history h LEFT JOIN dbo.chat_user c ON h.fromuser=c.userid
 GO
-/****** Object:  View [dbo].[V_Chat_UserGroup]    Script Date: 05/05/2016 11:55:23 ******/
+/****** Object:  View [dbo].[V_Chat_UserGroup]    Script Date: 05/24/2016 11:12:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,7 +214,7 @@ AS
 SELECT id,f.userid,d.groupid,f.groupname,d.friendid,c.name,c.photo FROM dbo.chat_user_friendgroup_details d LEFT JOIN dbo.chat_user_friendgroup f ON d.groupid=f.groupid
 LEFT JOIN chat_user c ON d.friendid = c.userid
 GO
-/****** Object:  View [dbo].[V_Chat_User_Apply]    Script Date: 05/05/2016 11:55:23 ******/
+/****** Object:  View [dbo].[V_Chat_User_Apply]    Script Date: 05/24/2016 11:12:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -344,7 +346,7 @@ End
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_DiagramPaneCount', @value=1 , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'VIEW',@level1name=N'V_Chat_User_Apply'
 GO
-/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriend]    Script Date: 05/05/2016 11:55:24 ******/
+/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriend]    Script Date: 05/24/2016 11:13:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -387,7 +389,7 @@ GO
             end
             END
             GO
-            /****** Object:  StoredProcedure [dbo].[Proc_Chat_FriendApply]    Script Date: 05/05/2016 11:55:24 ******/
+            /****** Object:  StoredProcedure [dbo].[Proc_Chat_FriendApply]    Script Date: 05/24/2016 11:13:01 ******/
             SET ANSI_NULLS ON
             GO
             SET QUOTED_IDENTIFIER ON
@@ -414,7 +416,7 @@ GO
             end
             END
             GO
-            /****** Object:  StoredProcedure [dbo].[Proc_Chat_AddMessage]    Script Date: 05/05/2016 11:55:24 ******/
+            /****** Object:  StoredProcedure [dbo].[Proc_Chat_AddMessage]    Script Date: 05/24/2016 11:13:01 ******/
             SET ANSI_NULLS ON
             GO
             SET QUOTED_IDENTIFIER ON
@@ -429,23 +431,27 @@ GO
                         @type INT,
                         @msg VARCHAR(200),
                         @fromuser INT,
-                        @groupid INT
+                        @groupid INT,
+                        @images VARCHAR(8000),
+                        @files VARCHAR(8000)
                         AS
                         BEGIN
 
                         SET NOCOUNT ON;
-                        INSERT INTO dbo.chat_msg_history (id,[type],msg,fromuser,groupid,addtime)
+                        INSERT INTO dbo.chat_msg_history (id,[type],msg,fromuser,groupid,addtime,images,files)
                         VALUES  (@msgid  -- id - uniqueidentifier
                         ,@type -- type - int
                         ,@msg  -- msg - varchar(2000)
                         ,@fromuser  -- fromuser - int
                         ,@groupid -- groupid - int
                         ,GETDATE()  -- addtime - datetime
+                        ,@images
+                        ,@files
                         )
 
                         END
                         GO
-                        /****** Object:  StoredProcedure [dbo].[Proc_Chat_LoginOrRegister]    Script Date: 05/05/2016 11:55:24 ******/
+                        /****** Object:  StoredProcedure [dbo].[Proc_Chat_LoginOrRegister]    Script Date: 05/24/2016 11:13:01 ******/
                         SET ANSI_NULLS ON
                         GO
                         SET QUOTED_IDENTIFIER ON
@@ -486,7 +492,7 @@ GO
                                 END
                                 END
                                 GO
-                                /****** Object:  StoredProcedure [dbo].[Proc_Chat_IsFriend]    Script Date: 05/05/2016 11:55:24 ******/
+                                /****** Object:  StoredProcedure [dbo].[Proc_Chat_IsFriend]    Script Date: 05/24/2016 11:13:01 ******/
                                 SET ANSI_NULLS ON
                                 GO
                                 SET QUOTED_IDENTIFIER ON
@@ -520,7 +526,7 @@ GO
 
                                             END
                                             GO
-                                            /****** Object:  StoredProcedure [dbo].[Proc_Chat_GetHistory]    Script Date: 05/05/2016 11:55:24 ******/
+                                            /****** Object:  StoredProcedure [dbo].[Proc_Chat_GetHistory]    Script Date: 05/24/2016 11:13:01 ******/
                                             SET ANSI_NULLS ON
                                             GO
                                             SET QUOTED_IDENTIFIER ON
@@ -566,7 +572,7 @@ GO
                                                                                                     END;
                                                                                                     END;
                                                                                                     GO
-/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriendWithGroup]    Script Date: 05/05/2016 11:55:24 ******/
+/****** Object:  StoredProcedure [dbo].[Proc_Chat_AddFriendWithGroup]    Script Date: 05/24/2016 11:13:01 ******/
                                                         SET ANSI_NULLS ON
                                                         GO
                                                         SET QUOTED_IDENTIFIER ON
@@ -607,7 +613,7 @@ GO
 
                                                                     END;
                                                                     GO
-                                                                    /****** Object:  StoredProcedure [dbo].[Proc_GetChatUserFriendList]    Script Date: 05/05/2016 11:55:24 ******/
+                                                                    /****** Object:  StoredProcedure [dbo].[Proc_GetChatUserFriendList]    Script Date: 05/24/2016 11:13:01 ******/
                                                                     SET ANSI_NULLS ON
                                                                     GO
                                                                     SET QUOTED_IDENTIFIER ON
@@ -633,15 +639,15 @@ GO
 
                                                                                 END
                                                                                 GO
-                                                                                /****** Object:  Default [DF_chat_user_orgnization_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                /****** Object:  Default [DF_chat_user_orgnization_addtime]    Script Date: 05/24/2016 11:12:58 ******/
                                                                                 ALTER TABLE [dbo].[chat_user_orgnization] ADD  CONSTRAINT [DF_chat_user_orgnization_addtime]  DEFAULT (getdate()) FOR [addtime]
                                                                                 GO
-                                                                                /****** Object:  Default [DF_chat_msg_history_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                /****** Object:  Default [DF_chat_msg_history_addtime]    Script Date: 05/24/2016 11:12:58 ******/
                                                                                 ALTER TABLE [dbo].[chat_msg_history] ADD  CONSTRAINT [DF_chat_msg_history_addtime]  DEFAULT (getdate()) FOR [addtime]
                                                                                 GO
-                                                                                /****** Object:  Default [DF_chat_friend_apply_addtime]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                /****** Object:  Default [DF_chat_friend_apply_addtime]    Script Date: 05/24/2016 11:12:58 ******/
                                                                                 ALTER TABLE [dbo].[chat_friend_apply] ADD  CONSTRAINT [DF_chat_friend_apply_addtime]  DEFAULT (getdate()) FOR [addtime]
                                                                                 GO
-                                                                                /****** Object:  Default [DF_chat_friend_apply_handle]    Script Date: 05/05/2016 11:55:22 ******/
+                                                                                /****** Object:  Default [DF_chat_friend_apply_handle]    Script Date: 05/24/2016 11:12:58 ******/
                                                                                 ALTER TABLE [dbo].[chat_friend_apply] ADD  CONSTRAINT [DF_chat_friend_apply_handle]  DEFAULT ((0)) FOR [handle]
                                                                                 GO

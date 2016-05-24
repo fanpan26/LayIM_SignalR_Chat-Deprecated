@@ -253,7 +253,7 @@
         log.html = '<div class="layim_chatbox" id="layim_chatbox">'
                 + '<h6>'
                 + '<span class="layim_move"></span>'
-                + '    <a href="' + param.url + '" class="layim_face" target="_blank"><img src="' + param.face + '" ></a>'
+                + '    <a href="' + param.url + '" class="layim_face" target="_blank"><img data-img="img_face_' + param.id + '" src="' + param.face + '" ></a>'
                 + '    <a href="' + param.url + '" class="layim_names" target="_blank">' + param.name + '</a>'
                 + '    <span class="layim_rightbtn">'
                 + '        <i class="layer_setmin"></i>'
@@ -286,6 +286,8 @@
                 + '</div>';
 
         if (config.chatings < 1) {
+            console.log("===============");
+            console.log(param);
             $.layer({
                 type: 1,
                 border: [0],
@@ -384,9 +386,9 @@
                         if (type === 'me') {
                             return '<span class="layim_chattime">' + param.time + '</span>'
                                    + '<span class="layim_chatname">' + param.name + '</span>'
-                                   + '<img src="' + param.face + '" >';
+                                   + '<img data-img="img_face_' + param.id + '" src="' + param.face + '" >';
                         } else {
-                            return '<img src="' + param.face + '" >'
+                            return '<img data-img="img_face_' + param.id + '" src="' + param.face + '" >'
                                    + '<span class="layim_chatname">' + param.name + '</span>'
                                    + '<span class="layim_chattime">' + param.time + '</span>';
                         }
@@ -401,6 +403,7 @@
             //这里要用prepend，因为，是往上一条一条插入
             obj.prepend(l.html({
                 time: result.addtime,
+                id:result.fromuser.id,
                 name: result.fromuser.name,
                 face: result.fromuser.face,
                 msgid: result.msgid,
@@ -476,7 +479,7 @@
                 var ii = 0, lens = datas.data.length;
                 if (lens > 0) {
                     for (; ii < lens; ii++) {
-                        str += '<li data-id="' + datas.data[ii].id + '" type="one"><img src="' + datas.data[ii].face + '"><span class="xxim_onename">' + datas.data[ii].name + '</span></li>';
+                        str += '<li data-id="' + datas.data[ii].id + '" type="one"><img data-img="img_face_'+datas.data[ii].id+'" src="' + datas.data[ii].face + '"><span class="xxim_onename">' + datas.data[ii].name + '</span></li>';
                     }
                 } else {
                     str = '<li class="layim_errors">没有群员</li>';
@@ -677,7 +680,7 @@
                                 + '<ul class="xxim_chatlist">';
                             item = datas.data[i].item;
                             for (var j = 0; j < item.length; j++) {
-                                str += '<li data-id="' + item[j].id + '" class="xxim_childnode" type="' + (index === 0 ? 'one' : 'group') + '"><img src="' + item[j].face + '" class="xxim_oneface"><span class="xxim_onename">' + item[j].name + '</span></li>';
+                                str += '<li data-id="' + item[j].id + '" class="xxim_childnode" type="' + (index === 0 ? 'one' : 'group') + '"><img data-img="img_face_' + item[j].id + '" src="' + item[j].face + '" class="xxim_oneface"><span class="xxim_onename">' + item[j].name + '</span></li>';
                             }
                             str += '</ul></li>';
                         }
@@ -685,7 +688,7 @@
                         str += '<li class="xxim_liston">'
                             + '<ul class="xxim_chatlist">';
                         for (; i < myflen; i++) {
-                            str += '<li data-id="' + datas.data[i].id + '" class="xxim_childnode" type="one"><img src="' + datas.data[i].face + '"  class="xxim_oneface"><span  class="xxim_onename">' + datas.data[i].name + '</span><em class="xxim_time">' + datas.data[i].handle + '</em></li>';
+                            str += '<li data-id="' + datas.data[i].id + '" class="xxim_childnode" type="one"><img data-img="img_face_' + datas.data[i].id + '" src="' + datas.data[i].face + '"  class="xxim_oneface"><span  class="xxim_onename">' + datas.data[i].name + '</span><em class="xxim_time">' + datas.data[i].handle + '</em></li>';
                         }
                         str += '</ul></li>';
                     }
