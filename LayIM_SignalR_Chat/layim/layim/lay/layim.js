@@ -346,6 +346,7 @@
         //单条
         if (one.length&&param.type=='one') {
             one.scroll(function () {
+              
                 var lastid = one.find('li').first().data('msgid') || '';
                 var nScrollTop = $(this)[0].scrollTop;
                 if (nScrollTop == 0 && one.data('load') != 1) {

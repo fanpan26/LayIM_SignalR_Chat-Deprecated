@@ -39,6 +39,7 @@
             init: function () {
                 //客户端 receiveMessage 方法
                 _this.proxy.proxyCS.client.receiveMessage = function (result) {
+                    //receiveMessage方法内部又调用了下面这个方法。。。
                     _this.option.receiveCallBack(result);
                 };
             }
